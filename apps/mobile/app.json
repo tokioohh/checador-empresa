@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Checador",
+    "slug": "checador-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.empresa.checador",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Se necesita la cámara para escanear el código QR de asistencia.",
+        "NSFaceIDUsageDescription": "Se usa Face ID para verificar tu identidad antes de registrar la asistencia."
+      }
+    },
+    "android": {
+      "package": "com.empresa.checador",
+      "permissions": [
+        "CAMERA",
+        "USE_BIOMETRIC",
+        "USE_FINGERPRINT"
+      ]
+    },
+    "plugins": [
+      "expo-camera",
+      "expo-local-authentication",
+      "expo-secure-store"
+    ],
+    "extra": {
+      "apiUrl": "http://localhost:4000"
+    }
+  }
+}

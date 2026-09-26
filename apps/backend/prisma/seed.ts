@@ -28,6 +28,7 @@ const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  // --- Admin ---
   const correo = process.env.ADMIN_SEED_EMAIL ?? "admin@empresa.com";
   const password = process.env.ADMIN_SEED_PASSWORD ?? "changeme123";
   const nombre = process.env.ADMIN_SEED_NOMBRE ?? "Administrador";
@@ -51,6 +52,42 @@ async function main() {
       `⚠️  Se usó la contraseña por defecto ("${password}"). Cámbiala después de tu primer login.`
     );
   }
+
+  // --- Empleado de prueba ---
+  const empPassword = process.env.EMPLEADO_SEED_PASSWORD ?? "emp123";
+  const empHash = await bcrypt.hash(empPassword, 12);
+
+  const empleado = await prisma.empleado.upsert({
+    where: { numeroEmpleado: "EMP001" },
+    update: {},
+    create: {
+      nombre: "Juan Pérez",
+      numeroEmpleado: "EMP001",
+      correo: "juan@empresa.com",
+      puesto: "Desarrollador",
+      horarioEntrada: "09:00",
+      horarioSalida: "18:00",
+      passwordHash: empHash,
+    },
+  });
+
+  console.log("✅ Empleado de prueba listo:", empleado.numeroEmpleado, "(password:", empPassword + ")");
+
+  // --- Código de activación de prueba ---
+  const ttl = parseInt(process.env.ACTIVATION_CODE_TTL_HOURS ?? "4", 10);
+  const addHours = (d: Date, h: number) => new Date(d.getTime() + h * 3_600_000);
+
+  await prisma.codigoActivacion.upsert({
+    where: { codigo: "ACTIVAR001" },
+    update: { expiraEn: addHours(new Date(), ttl), usado: false, usadoEn: null },
+    create: {
+      empleadoId: empleado.id,
+      codigo: "ACTIVAR001",
+      expiraEn: addHours(new Date(), ttl),
+    },
+  });
+
+  console.log("✅ Código de activación listo: ACTIVAR001 (expira en", ttl, "horas)");
 }
 
 main()

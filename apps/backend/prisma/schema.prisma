@@ -60,6 +60,9 @@ model Empleado {
   horarioEntrada String?
   horarioSalida  String?
   estado         EstadoEmpleado @default(ACTIVO)
+  // Hash de contraseña para login móvil (MVP). En producción el acceso se hace
+  // únicamente por biometría + dispositivo registrado; este campo puede eliminarse.
+  passwordHash   String?
 
   dispositivos      Dispositivo[]
   asistencias       Asistencia[]
@@ -128,7 +131,8 @@ model Asistencia {
   puntualidad Puntualidad?
 
   // Ruta relativa dentro de storage/fotos-asistencia/, NO la imagen en sí.
-  fotoUrl String
+  // Nullable para MVP móvil; en producción siempre se adjunta foto.
+  fotoUrl String?
 
   createdAt DateTime @default(now())
 
