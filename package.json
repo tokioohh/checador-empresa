@@ -1,0 +1,29 @@
+{
+  "name": "checador-empresa",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:backend": "npm run dev -w apps/backend",
+    "build:backend": "npm run build -w apps/backend",
+    "start:backend": "npm run start -w apps/backend",
+    "prisma:generate": "npm run prisma:generate -w apps/backend",
+    "prisma:migrate": "npm run prisma:migrate -w apps/backend --",
+    "prisma:seed": "npm run prisma:seed -w apps/backend"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.10.0"
+  },
+  "allowScripts": {
+    "prisma": true,
+    "@prisma/engines": true,
+    "bcrypt": true,
+    "esbuild": true
+  },
+  "overrides": {
+    "mysql2": "^3.24.4",
+    "deepmerge-ts": "^8.0.2"
+  }
+}

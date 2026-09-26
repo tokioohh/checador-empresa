@@ -1,0 +1,33 @@
+# Dependencias
+node_modules/
+.npm
+
+# Builds
+dist/
+build/
+
+# Variables de entorno reales (solo .env.example va al repo)
+.env
+.env.local
+.env.*.local
+
+# Prisma
+apps/backend/prisma/migrations/dev.db
+
+# Storage: el contenido subido por usuarios no va al repo, solo la estructura
+storage/**
+!storage/.gitkeep
+!storage/fotos-asistencia/.gitkeep
+!storage/media/.gitkeep
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+
+# Docker
+docker-compose.override.yml

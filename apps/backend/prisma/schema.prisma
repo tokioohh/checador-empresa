@@ -1,0 +1,188 @@
+// Schema del sistema de checador
+// Decisiones clave reflejadas aquí (ver conversación de planeación):
+// - No existe campo de huella: la biometría vive solo en el teléfono del empleado.
+//   El servidor solo guarda la llave pública del dispositivo (esquema tipo passkey).
+// - Entradas y Salidas están unificadas en un solo modelo Asistencia con campo `tipo`.
+// - El timestamp de cada Asistencia lo genera el servidor, nunca el cliente.
+// - El QR de asistencia (rotativo, 30s) NO se persiste aquí: se genera y valida
+//   como token firmado (HMAC + expiración embebida) desde el backend. No necesita tabla.
+// - LecturaSensor fue removido del alcance del proyecto.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+datasource db {
+  provider = "postgresql"
+}
+
+enum EstadoEmpleado {
+  ACTIVO
+  INACTIVO
+  BAJA
+}
+
+enum EstadoDispositivo {
+  PENDIENTE // vinculado pero esperando primer check-in / confirmación
+  ACTIVO
+  REVOCADO
+}
+
+enum TipoAsistencia {
+  ENTRADA
+  SALIDA
+}
+
+enum Puntualidad {
+  A_TIEMPO
+  RETARDO
+}
+
+enum TipoMedia {
+  IMAGEN
+  VIDEO
+}
+
+enum RolAdmin {
+  SUPERADMIN
+  ADMIN
+}
+
+model Empleado {
+  id             String         @id @default(uuid())
+  nombre         String
+  numeroEmpleado String         @unique
+  correo         String?        @unique
+  puesto         String?
+  // Horario esperado general (formato "HH:mm"). Si en el futuro se necesitan
+  // horarios distintos por día, esto se mueve a un modelo Horario aparte.
+  horarioEntrada String?
+  horarioSalida  String?
+  estado         EstadoEmpleado @default(ACTIVO)
+
+  dispositivos      Dispositivo[]
+  asistencias       Asistencia[]
+  codigosActivacion CodigoActivacion[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("empleados")
+}
+
+model Dispositivo {
+  id         String            @id @default(uuid())
+  empleadoId String
+  empleado   Empleado          @relation(fields: [empleadoId], references: [id])
+
+  // Llave pública generada por el teléfono (Keychain/Keystore), protegida por biometría.
+  // El servidor NUNCA ve ni guarda la huella en sí, solo esta llave pública.
+  publicKey String @unique
+
+  plataforma String // "ios" | "android"
+  estado     EstadoDispositivo @default(PENDIENTE)
+
+  fechaRegistro DateTime @default(now())
+
+  asistencias Asistencia[]
+
+  @@map("dispositivos")
+}
+
+// Código/QR de un solo uso que el admin muestra en su pantalla para vincular
+// el teléfono de un empleado nuevo (o uno que cambió de dispositivo).
+model CodigoActivacion {
+  id         String   @id @default(uuid())
+  empleadoId String
+  empleado   Empleado @relation(fields: [empleadoId], references: [id])
+
+  codigo   String    @unique
+  expiraEn DateTime
+  usado    Boolean   @default(false)
+  usadoEn  DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@map("codigos_activacion")
+}
+
+model Asistencia {
+  id String @id @default(uuid())
+
+  empleadoId String
+  empleado   Empleado @relation(fields: [empleadoId], references: [id])
+
+  dispositivoId String
+  dispositivo   Dispositivo @relation(fields: [dispositivoId], references: [id])
+
+  tipo TipoAsistencia
+
+  // Generado por el servidor al recibir el registro, nunca por el celular.
+  timestamp DateTime @default(now())
+
+  // Fecha "laboral" (no necesariamente igual a timestamp) para turnos que
+  // cruzan la medianoche, útil para reportes por día de trabajo.
+  fechaLaboral DateTime @db.Date
+
+  puntualidad Puntualidad?
+
+  // Ruta relativa dentro de storage/fotos-asistencia/, NO la imagen en sí.
+  fotoUrl String
+
+  createdAt DateTime @default(now())
+
+  @@map("asistencias")
+}
+
+model Aviso {
+  id          String   @id @default(uuid())
+  texto       String
+  prioridad   Int      @default(0)
+  fechaInicio DateTime
+  fechaFin    DateTime
+  activo      Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("avisos")
+}
+
+model Media {
+  id               String    @id @default(uuid())
+  tipo             TipoMedia
+  // Ruta relativa dentro de storage/media/, NO el archivo en sí.
+  archivoUrl       String
+  duracionSegundos Int?
+  orden            Int       @default(0)
+  activo           Boolean   @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("media")
+}
+
+model Admin {
+  id           String   @id @default(uuid())
+  correo       String   @unique
+  passwordHash String
+  nombre       String
+  rol          RolAdmin @default(ADMIN)
+
+  createdAt DateTime @default(now())
+
+  @@map("admins")
+}
+
+model Log {
+  id        String   @id @default(uuid())
+  categoria String // ej: "auth", "asistencia", "dispositivo", "sistema"
+  mensaje   String
+  metadata  Json?
+
+  createdAt DateTime @default(now())
+
+  @@map("logs")
+}
