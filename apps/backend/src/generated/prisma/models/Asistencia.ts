@@ -179,7 +179,7 @@ export type AsistenciaGroupByOutputType = {
   timestamp: Date
   fechaLaboral: Date
   puntualidad: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl: string | null
   createdAt: Date
   _count: AsistenciaCountAggregateOutputType | null
   _min: AsistenciaMinAggregateOutputType | null
@@ -212,7 +212,7 @@ export type AsistenciaWhereInput = {
   timestamp?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   fechaLaboral?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   puntualidad?: Prisma.EnumPuntualidadNullableFilter<"Asistencia"> | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFilter<"Asistencia"> | string
+  fotoUrl?: Prisma.StringNullableFilter<"Asistencia"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   empleado?: Prisma.XOR<Prisma.EmpleadoScalarRelationFilter, Prisma.EmpleadoWhereInput>
   dispositivo?: Prisma.XOR<Prisma.DispositivoScalarRelationFilter, Prisma.DispositivoWhereInput>
@@ -226,7 +226,7 @@ export type AsistenciaOrderByWithRelationInput = {
   timestamp?: Prisma.SortOrder
   fechaLaboral?: Prisma.SortOrder
   puntualidad?: Prisma.SortOrderInput | Prisma.SortOrder
-  fotoUrl?: Prisma.SortOrder
+  fotoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   empleado?: Prisma.EmpleadoOrderByWithRelationInput
   dispositivo?: Prisma.DispositivoOrderByWithRelationInput
@@ -243,7 +243,7 @@ export type AsistenciaWhereUniqueInput = Prisma.AtLeast<{
   timestamp?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   fechaLaboral?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   puntualidad?: Prisma.EnumPuntualidadNullableFilter<"Asistencia"> | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFilter<"Asistencia"> | string
+  fotoUrl?: Prisma.StringNullableFilter<"Asistencia"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   empleado?: Prisma.XOR<Prisma.EmpleadoScalarRelationFilter, Prisma.EmpleadoWhereInput>
   dispositivo?: Prisma.XOR<Prisma.DispositivoScalarRelationFilter, Prisma.DispositivoWhereInput>
@@ -257,7 +257,7 @@ export type AsistenciaOrderByWithAggregationInput = {
   timestamp?: Prisma.SortOrder
   fechaLaboral?: Prisma.SortOrder
   puntualidad?: Prisma.SortOrderInput | Prisma.SortOrder
-  fotoUrl?: Prisma.SortOrder
+  fotoUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.AsistenciaCountOrderByAggregateInput
   _max?: Prisma.AsistenciaMaxOrderByAggregateInput
@@ -275,7 +275,7 @@ export type AsistenciaScalarWhereWithAggregatesInput = {
   timestamp?: Prisma.DateTimeWithAggregatesFilter<"Asistencia"> | Date | string
   fechaLaboral?: Prisma.DateTimeWithAggregatesFilter<"Asistencia"> | Date | string
   puntualidad?: Prisma.EnumPuntualidadNullableWithAggregatesFilter<"Asistencia"> | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringWithAggregatesFilter<"Asistencia"> | string
+  fotoUrl?: Prisma.StringNullableWithAggregatesFilter<"Asistencia"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Asistencia"> | Date | string
 }
 
@@ -285,7 +285,7 @@ export type AsistenciaCreateInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
   empleado: Prisma.EmpleadoCreateNestedOneWithoutAsistenciasInput
   dispositivo: Prisma.DispositivoCreateNestedOneWithoutAsistenciasInput
@@ -299,7 +299,7 @@ export type AsistenciaUncheckedCreateInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -309,7 +309,7 @@ export type AsistenciaUpdateInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   empleado?: Prisma.EmpleadoUpdateOneRequiredWithoutAsistenciasNestedInput
   dispositivo?: Prisma.DispositivoUpdateOneRequiredWithoutAsistenciasNestedInput
@@ -323,7 +323,7 @@ export type AsistenciaUncheckedUpdateInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -335,7 +335,7 @@ export type AsistenciaCreateManyInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -345,7 +345,7 @@ export type AsistenciaUpdateManyMutationInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -357,7 +357,7 @@ export type AsistenciaUncheckedUpdateManyInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -505,7 +505,7 @@ export type AsistenciaCreateWithoutEmpleadoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
   dispositivo: Prisma.DispositivoCreateNestedOneWithoutAsistenciasInput
 }
@@ -517,7 +517,7 @@ export type AsistenciaUncheckedCreateWithoutEmpleadoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -558,7 +558,7 @@ export type AsistenciaScalarWhereInput = {
   timestamp?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   fechaLaboral?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
   puntualidad?: Prisma.EnumPuntualidadNullableFilter<"Asistencia"> | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFilter<"Asistencia"> | string
+  fotoUrl?: Prisma.StringNullableFilter<"Asistencia"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Asistencia"> | Date | string
 }
 
@@ -568,7 +568,7 @@ export type AsistenciaCreateWithoutDispositivoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
   empleado: Prisma.EmpleadoCreateNestedOneWithoutAsistenciasInput
 }
@@ -580,7 +580,7 @@ export type AsistenciaUncheckedCreateWithoutDispositivoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -617,7 +617,7 @@ export type AsistenciaCreateManyEmpleadoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -627,7 +627,7 @@ export type AsistenciaUpdateWithoutEmpleadoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivo?: Prisma.DispositivoUpdateOneRequiredWithoutAsistenciasNestedInput
 }
@@ -639,7 +639,7 @@ export type AsistenciaUncheckedUpdateWithoutEmpleadoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -650,7 +650,7 @@ export type AsistenciaUncheckedUpdateManyWithoutEmpleadoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -661,7 +661,7 @@ export type AsistenciaCreateManyDispositivoInput = {
   timestamp?: Date | string
   fechaLaboral: Date | string
   puntualidad?: $Enums.Puntualidad | null
-  fotoUrl: string
+  fotoUrl?: string | null
   createdAt?: Date | string
 }
 
@@ -671,7 +671,7 @@ export type AsistenciaUpdateWithoutDispositivoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   empleado?: Prisma.EmpleadoUpdateOneRequiredWithoutAsistenciasNestedInput
 }
@@ -683,7 +683,7 @@ export type AsistenciaUncheckedUpdateWithoutDispositivoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -694,7 +694,7 @@ export type AsistenciaUncheckedUpdateManyWithoutDispositivoInput = {
   timestamp?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaLaboral?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   puntualidad?: Prisma.NullableEnumPuntualidadFieldUpdateOperationsInput | $Enums.Puntualidad | null
-  fotoUrl?: Prisma.StringFieldUpdateOperationsInput | string
+  fotoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -782,7 +782,7 @@ export type $AsistenciaPayload<ExtArgs extends runtime.Types.Extensions.Internal
     timestamp: Date
     fechaLaboral: Date
     puntualidad: $Enums.Puntualidad | null
-    fotoUrl: string
+    fotoUrl: string | null
     createdAt: Date
   }, ExtArgs["result"]["asistencia"]>
   composites: {}

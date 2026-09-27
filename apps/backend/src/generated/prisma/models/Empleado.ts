@@ -33,6 +33,7 @@ export type EmpleadoMinAggregateOutputType = {
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,6 +47,7 @@ export type EmpleadoMaxAggregateOutputType = {
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -59,6 +61,7 @@ export type EmpleadoCountAggregateOutputType = {
   horarioEntrada: number
   horarioSalida: number
   estado: number
+  passwordHash: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -74,6 +77,7 @@ export type EmpleadoMinAggregateInputType = {
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -87,6 +91,7 @@ export type EmpleadoMaxAggregateInputType = {
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -100,6 +105,7 @@ export type EmpleadoCountAggregateInputType = {
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -186,6 +192,7 @@ export type EmpleadoGroupByOutputType = {
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado
+  passwordHash: string | null
   createdAt: Date
   updatedAt: Date
   _count: EmpleadoCountAggregateOutputType | null
@@ -220,6 +227,7 @@ export type EmpleadoWhereInput = {
   horarioEntrada?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   dispositivos?: Prisma.DispositivoListRelationFilter
@@ -236,6 +244,7 @@ export type EmpleadoOrderByWithRelationInput = {
   horarioEntrada?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioSalida?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dispositivos?: Prisma.DispositivoOrderByRelationAggregateInput
@@ -255,6 +264,7 @@ export type EmpleadoWhereUniqueInput = Prisma.AtLeast<{
   horarioEntrada?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   dispositivos?: Prisma.DispositivoListRelationFilter
@@ -271,6 +281,7 @@ export type EmpleadoOrderByWithAggregationInput = {
   horarioEntrada?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioSalida?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmpleadoCountOrderByAggregateInput
@@ -290,6 +301,7 @@ export type EmpleadoScalarWhereWithAggregatesInput = {
   horarioEntrada?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoWithAggregatesFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Empleado"> | Date | string
 }
@@ -303,6 +315,7 @@ export type EmpleadoCreateInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -319,6 +332,7 @@ export type EmpleadoUncheckedCreateInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -335,6 +349,7 @@ export type EmpleadoUpdateInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -351,6 +366,7 @@ export type EmpleadoUncheckedUpdateInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -367,6 +383,7 @@ export type EmpleadoCreateManyInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -380,6 +397,7 @@ export type EmpleadoUpdateManyMutationInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -393,6 +411,7 @@ export type EmpleadoUncheckedUpdateManyInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -406,6 +425,7 @@ export type EmpleadoCountOrderByAggregateInput = {
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,6 +439,7 @@ export type EmpleadoMaxOrderByAggregateInput = {
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -432,6 +453,7 @@ export type EmpleadoMinOrderByAggregateInput = {
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -508,6 +530,7 @@ export type EmpleadoCreateWithoutDispositivosInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   asistencias?: Prisma.AsistenciaCreateNestedManyWithoutEmpleadoInput
@@ -523,6 +546,7 @@ export type EmpleadoUncheckedCreateWithoutDispositivosInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   asistencias?: Prisma.AsistenciaUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -554,6 +578,7 @@ export type EmpleadoUpdateWithoutDispositivosInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   asistencias?: Prisma.AsistenciaUpdateManyWithoutEmpleadoNestedInput
@@ -569,6 +594,7 @@ export type EmpleadoUncheckedUpdateWithoutDispositivosInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   asistencias?: Prisma.AsistenciaUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -584,6 +610,7 @@ export type EmpleadoCreateWithoutCodigosActivacionInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -599,6 +626,7 @@ export type EmpleadoUncheckedCreateWithoutCodigosActivacionInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -630,6 +658,7 @@ export type EmpleadoUpdateWithoutCodigosActivacionInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -645,6 +674,7 @@ export type EmpleadoUncheckedUpdateWithoutCodigosActivacionInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -660,6 +690,7 @@ export type EmpleadoCreateWithoutAsistenciasInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -675,6 +706,7 @@ export type EmpleadoUncheckedCreateWithoutAsistenciasInput = {
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -706,6 +738,7 @@ export type EmpleadoUpdateWithoutAsistenciasInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -721,6 +754,7 @@ export type EmpleadoUncheckedUpdateWithoutAsistenciasInput = {
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -785,6 +819,7 @@ export type EmpleadoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   dispositivos?: boolean | Prisma.Empleado$dispositivosArgs<ExtArgs>
@@ -802,6 +837,7 @@ export type EmpleadoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["empleado"]>
@@ -815,6 +851,7 @@ export type EmpleadoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["empleado"]>
@@ -828,11 +865,12 @@ export type EmpleadoSelectScalar = {
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmpleadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "numeroEmpleado" | "correo" | "puesto" | "horarioEntrada" | "horarioSalida" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["empleado"]>
+export type EmpleadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "numeroEmpleado" | "correo" | "puesto" | "horarioEntrada" | "horarioSalida" | "estado" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["empleado"]>
 export type EmpleadoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   dispositivos?: boolean | Prisma.Empleado$dispositivosArgs<ExtArgs>
   asistencias?: boolean | Prisma.Empleado$asistenciasArgs<ExtArgs>
@@ -858,6 +896,7 @@ export type $EmpleadoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     horarioEntrada: string | null
     horarioSalida: string | null
     estado: $Enums.EstadoEmpleado
+    passwordHash: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["empleado"]>
@@ -1294,6 +1333,7 @@ export interface EmpleadoFieldRefs {
   readonly horarioEntrada: Prisma.FieldRef<"Empleado", 'String'>
   readonly horarioSalida: Prisma.FieldRef<"Empleado", 'String'>
   readonly estado: Prisma.FieldRef<"Empleado", 'EstadoEmpleado'>
+  readonly passwordHash: Prisma.FieldRef<"Empleado", 'String'>
   readonly createdAt: Prisma.FieldRef<"Empleado", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Empleado", 'DateTime'>
 }

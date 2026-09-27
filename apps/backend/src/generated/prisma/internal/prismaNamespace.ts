@@ -402,6 +402,7 @@ export const ModelName = {
   CodigoActivacion: 'CodigoActivacion',
   Asistencia: 'Asistencia',
   Aviso: 'Aviso',
+  Archivo: 'Archivo',
   Media: 'Media',
   Admin: 'Admin',
   Log: 'Log'
@@ -420,7 +421,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "empleado" | "dispositivo" | "codigoActivacion" | "asistencia" | "aviso" | "media" | "admin" | "log"
+    modelProps: "empleado" | "dispositivo" | "codigoActivacion" | "asistencia" | "aviso" | "archivo" | "media" | "admin" | "log"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -794,6 +795,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    Archivo: {
+      payload: Prisma.$ArchivoPayload<ExtArgs>
+      fields: Prisma.ArchivoFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ArchivoFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ArchivoFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        findFirst: {
+          args: Prisma.ArchivoFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ArchivoFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        findMany: {
+          args: Prisma.ArchivoFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>[]
+        }
+        create: {
+          args: Prisma.ArchivoCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        createMany: {
+          args: Prisma.ArchivoCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ArchivoCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>[]
+        }
+        delete: {
+          args: Prisma.ArchivoDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        update: {
+          args: Prisma.ArchivoUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        deleteMany: {
+          args: Prisma.ArchivoDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ArchivoUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ArchivoUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>[]
+        }
+        upsert: {
+          args: Prisma.ArchivoUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ArchivoPayload>
+        }
+        aggregate: {
+          args: Prisma.ArchivoAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateArchivo>
+        }
+        groupBy: {
+          args: Prisma.ArchivoGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArchivoGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ArchivoCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ArchivoCountAggregateOutputType> | number
+        }
+      }
+    }
     Media: {
       payload: Prisma.$MediaPayload<ExtArgs>
       fields: Prisma.MediaFieldRefs
@@ -1064,6 +1139,7 @@ export const EmpleadoScalarFieldEnum = {
   horarioEntrada: 'horarioEntrada',
   horarioSalida: 'horarioSalida',
   estado: 'estado',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -1125,10 +1201,22 @@ export const AvisoScalarFieldEnum = {
 export type AvisoScalarFieldEnum = (typeof AvisoScalarFieldEnum)[keyof typeof AvisoScalarFieldEnum]
 
 
+export const ArchivoScalarFieldEnum = {
+  id: 'id',
+  nombreOriginal: 'nombreOriginal',
+  archivoUrl: 'archivoUrl',
+  tipo: 'tipo',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  createdAt: 'createdAt'
+} as const
+
+export type ArchivoScalarFieldEnum = (typeof ArchivoScalarFieldEnum)[keyof typeof ArchivoScalarFieldEnum]
+
+
 export const MediaScalarFieldEnum = {
   id: 'id',
-  tipo: 'tipo',
-  archivoUrl: 'archivoUrl',
+  archivoId: 'archivoId',
   duracionSegundos: 'duracionSegundos',
   orden: 'orden',
   activo: 'activo',
@@ -1525,6 +1613,7 @@ export type GlobalOmitConfig = {
   codigoActivacion?: Prisma.CodigoActivacionOmit
   asistencia?: Prisma.AsistenciaOmit
   aviso?: Prisma.AvisoOmit
+  archivo?: Prisma.ArchivoOmit
   media?: Prisma.MediaOmit
   admin?: Prisma.AdminOmit
   log?: Prisma.LogOmit

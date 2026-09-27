@@ -56,6 +56,7 @@ export const ModelName = {
   CodigoActivacion: 'CodigoActivacion',
   Asistencia: 'Asistencia',
   Aviso: 'Aviso',
+  Archivo: 'Archivo',
   Media: 'Media',
   Admin: 'Admin',
   Log: 'Log'
@@ -86,6 +87,7 @@ export const EmpleadoScalarFieldEnum = {
   horarioEntrada: 'horarioEntrada',
   horarioSalida: 'horarioSalida',
   estado: 'estado',
+  passwordHash: 'passwordHash',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -147,10 +149,22 @@ export const AvisoScalarFieldEnum = {
 export type AvisoScalarFieldEnum = (typeof AvisoScalarFieldEnum)[keyof typeof AvisoScalarFieldEnum]
 
 
+export const ArchivoScalarFieldEnum = {
+  id: 'id',
+  nombreOriginal: 'nombreOriginal',
+  archivoUrl: 'archivoUrl',
+  tipo: 'tipo',
+  mimeType: 'mimeType',
+  sizeBytes: 'sizeBytes',
+  createdAt: 'createdAt'
+} as const
+
+export type ArchivoScalarFieldEnum = (typeof ArchivoScalarFieldEnum)[keyof typeof ArchivoScalarFieldEnum]
+
+
 export const MediaScalarFieldEnum = {
   id: 'id',
-  tipo: 'tipo',
-  archivoUrl: 'archivoUrl',
+  archivoId: 'archivoId',
   duracionSegundos: 'duracionSegundos',
   orden: 'orden',
   activo: 'activo',

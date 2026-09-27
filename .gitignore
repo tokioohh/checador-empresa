@@ -16,6 +16,7 @@ apps/backend/prisma/migrations/dev.db
 
 # Storage: el contenido subido por usuarios no va al repo, solo la estructura
 storage/**
+apps/backend/storage/**
 !storage/.gitkeep
 !storage/fotos-asistencia/.gitkeep
 !storage/media/.gitkeep

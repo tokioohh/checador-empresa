@@ -4,6 +4,8 @@ import { empleadosRouter } from "./empleados.routes";
 import { empleadoAuthRouter } from "./empleado-auth.routes";
 import { dispositivosRouter } from "./dispositivos.routes";
 import { asistenciasRouter } from "./asistencias.routes";
+import { tvRouter } from "./tv.routes";
+import { adminRouter } from "./admin.routes";
 
 export const apiRouter = Router();
 
@@ -16,3 +18,5 @@ apiRouter.use("/auth/empleado", empleadoAuthRouter);
 apiRouter.use("/empleados", empleadosRouter);
 apiRouter.use("/dispositivos", dispositivosRouter);
 apiRouter.use("/asistencias", asistenciasRouter);
+apiRouter.use("/tv", tvRouter);
+apiRouter.use("/admin", adminRouter);
