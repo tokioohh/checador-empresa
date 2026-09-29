@@ -1,5 +1,12 @@
 import type { Aviso } from "../hooks/useAvisos";
 
+const COLOR_HEX: Record<Aviso["color"], string> = {
+  negro: "#1e293b",
+  rojo: "#dc2626",
+  amarillo: "#ca8a04",
+  verde: "#059669",
+};
+
 export function AvisosTicker({ avisos }: { avisos: Aviso[] }) {
   if (avisos.length === 0) {
     return (
@@ -20,7 +27,21 @@ export function AvisosTicker({ avisos }: { avisos: Aviso[] }) {
     );
   }
 
-  const texto = avisos.map((a) => a.texto).join("  •  ");
+  const renderAvisos = (keyPrefix: string) => (
+    <span
+      key={keyPrefix}
+      style={{ paddingRight: "60vw", display: "inline-flex", alignItems: "center" }}
+    >
+      {avisos.map((a, i) => (
+        <span key={`${keyPrefix}-${a.id}`} style={{ display: "inline-flex", alignItems: "center" }}>
+          {i > 0 && (
+            <span style={{ color: "#94a3b8", padding: "0 14px" }}>•</span>
+          )}
+          <span style={{ color: COLOR_HEX[a.color] ?? COLOR_HEX.negro }}>{a.texto}</span>
+        </span>
+      ))}
+    </span>
+  );
 
   return (
     <div
@@ -89,13 +110,12 @@ export function AvisosTicker({ avisos }: { avisos: Aviso[] }) {
             whiteSpace: "nowrap",
             animation: "ticker 22s linear infinite",
             fontSize: 16,
-            color: "#475569",
             paddingTop: 14,
             fontWeight: 500,
           }}
         >
-          <span style={{ paddingRight: "60vw" }}>{texto}</span>
-          <span style={{ paddingRight: "60vw" }}>{texto}</span>
+          {renderAvisos("a")}
+          {renderAvisos("b")}
         </div>
       </div>
 

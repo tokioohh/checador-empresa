@@ -1,14 +1,44 @@
 import { useCallback, useEffect, useState } from "react";
 import { api } from "../lib/api";
-import type { Aviso } from "../lib/types";
+import type { Aviso, AvisoColor } from "../lib/types";
 import { PencilIcon, TrashIcon } from "./Icon";
 
-const emptyForm = {
-  texto: "",
-  prioridad: 5,
-  fechaInicio: "",
-  fechaFin: "",
-  activo: true,
+const COLORES: { valor: AvisoColor; nombre: string; clase: string }[] = [
+  { valor: "negro", nombre: "Negro", clase: "bg-slate-900" },
+  { valor: "rojo", nombre: "Rojo", clase: "bg-red-600" },
+  { valor: "amarillo", nombre: "Amarillo", clase: "bg-yellow-500" },
+  { valor: "verde", nombre: "Verde", clase: "bg-emerald-600" },
+];
+
+type AvisoForm = {
+  texto: string;
+  color: AvisoColor;
+  fechaInicio: string; // YYYY-MM-DD
+  horaInicio: string; // HH:mm
+  fechaFin: string; // YYYY-MM-DD
+  horaFin: string; // HH:mm
+  indefinido: boolean;
+  activo: boolean;
+};
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const toDateInput = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+const toTimeInput = (d: Date) => `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+const isoToDateInput = (iso: string) => toDateInput(new Date(iso));
+const isoToTimeInput = (iso: string) => toTimeInput(new Date(iso));
+
+const emptyForm = (): AvisoForm => {
+  const hoy = new Date();
+  return {
+    texto: "",
+    color: "negro",
+    fechaInicio: toDateInput(hoy),
+    horaInicio: "09:00",
+    fechaFin: toDateInput(hoy),
+    horaFin: "18:00",
+    indefinido: false,
+    activo: true,
+  };
 };
 
 export function AvisosModule() {
@@ -16,7 +46,7 @@ export function AvisosModule() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [editando, setEditando] = useState<Aviso | null>(null);
-  const [form, setForm] = useState(emptyForm);
+  const [form, setForm] = useState<AvisoForm>(emptyForm);
 
   const cargar = useCallback(async () => {
     setLoading(true);
@@ -41,9 +71,12 @@ export function AvisosModule() {
     try {
       const data = {
         texto: form.texto,
-        prioridad: Number(form.prioridad),
-        fechaInicio: new Date(form.fechaInicio).toISOString(),
-        fechaFin: new Date(form.fechaFin).toISOString(),
+        color: form.color,
+        fechaInicio: new Date(`${form.fechaInicio}T${form.horaInicio || "00:00"}:00`).toISOString(),
+        fechaFin: form.indefinido
+          ? new Date("9999-12-31T23:59:59").toISOString()
+          : new Date(`${form.fechaFin}T${form.horaFin || "23:59"}:00`).toISOString(),
+        indefinido: form.indefinido,
         activo: form.activo,
       };
       if (editando) {
@@ -51,7 +84,7 @@ export function AvisosModule() {
       } else {
         await api.crearAviso(data);
       }
-      setForm(emptyForm);
+      setForm(emptyForm());
       setEditando(null);
       await cargar();
     } catch (err) {
@@ -63,9 +96,12 @@ export function AvisosModule() {
     setEditando(a);
     setForm({
       texto: a.texto,
-      prioridad: a.prioridad,
-      fechaInicio: a.fechaInicio.slice(0, 16),
-      fechaFin: a.fechaFin.slice(0, 16),
+      color: a.color,
+      fechaInicio: isoToDateInput(a.fechaInicio),
+      horaInicio: isoToTimeInput(a.fechaInicio),
+      fechaFin: isoToDateInput(a.fechaFin),
+      horaFin: isoToTimeInput(a.fechaFin),
+      indefinido: a.indefinido,
       activo: a.activo,
     });
   };
@@ -124,51 +160,93 @@ export function AvisosModule() {
                 required
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Fecha inicio</label>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-2">Color</label>
+              <div className="flex items-center gap-2">
+                {COLORES.map((c) => (
+                  <button
+                    key={c.valor}
+                    type="button"
+                    onClick={() => setForm({ ...form, color: c.valor })}
+                    className={`w-8 h-8 rounded-full border-2 transition ${c.clase} ${
+                      form.color === c.valor
+                        ? "border-slate-900 ring-2 ring-offset-2 ring-slate-400"
+                        : "border-transparent hover:scale-110"
+                    }`}
+                    title={c.nombre}
+                    aria-label={c.nombre}
+                  />
+                ))}
+                <span className="ml-2 text-sm text-slate-600">
+                  {COLORES.find((c) => c.valor === form.color)?.nombre ?? "Negro"}
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Inicio</label>
+              <div className="grid grid-cols-2 gap-3">
                 <input
-                  type="datetime-local"
+                  type="date"
                   value={form.fechaInicio}
                   onChange={(e) => setForm({ ...form, fechaInicio: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900"
                   required
                 />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Fecha fin</label>
                 <input
-                  type="datetime-local"
-                  value={form.fechaFin}
-                  onChange={(e) => setForm({ ...form, fechaFin: e.target.value })}
+                  type="time"
+                  value={form.horaInicio}
+                  onChange={(e) => setForm({ ...form, horaInicio: e.target.value })}
                   className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900"
                   required
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Prioridad</label>
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Fin</label>
+              <div className={`grid grid-cols-2 gap-3 ${form.indefinido ? "opacity-50" : ""}`}>
                 <input
-                  type="number"
-                  value={form.prioridad}
-                  onChange={(e) => setForm({ ...form, prioridad: Number(e.target.value) })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900"
-                  min={0}
+                  type="date"
+                  value={form.fechaFin}
+                  onChange={(e) => setForm({ ...form, fechaFin: e.target.value })}
+                  disabled={form.indefinido}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                  required={!form.indefinido}
+                />
+                <input
+                  type="time"
+                  value={form.horaFin}
+                  onChange={(e) => setForm({ ...form, horaFin: e.target.value })}
+                  disabled={form.indefinido}
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900 disabled:bg-slate-100 disabled:cursor-not-allowed"
+                  required={!form.indefinido}
                 />
               </div>
-              <div className="flex items-end pb-2">
-                <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={form.activo}
-                    onChange={(e) => setForm({ ...form, activo: e.target.checked })}
-                    className="w-4 h-4 text-emerald-600 rounded"
-                  />
-                  Activo
-                </label>
-              </div>
+              <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  checked={form.indefinido}
+                  onChange={(e) => setForm({ ...form, indefinido: e.target.checked })}
+                  className="w-4 h-4 text-emerald-600 rounded"
+                />
+                Sin fecha de fin (permanente)
+              </label>
             </div>
+
+            <div>
+              <label className="flex items-center gap-2 text-sm text-slate-700 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.activo}
+                  onChange={(e) => setForm({ ...form, activo: e.target.checked })}
+                  className="w-4 h-4 text-emerald-600 rounded"
+                />
+                Activo
+              </label>
+            </div>
+
             <div className="flex gap-2">
               <button
                 type="submit"
@@ -181,7 +259,7 @@ export function AvisosModule() {
                   type="button"
                   onClick={() => {
                     setEditando(null);
-                    setForm(emptyForm);
+                    setForm(emptyForm());
                   }}
                   className="px-4 py-2.5 text-sm text-slate-600 hover:bg-slate-100 rounded-lg transition"
                 >
@@ -204,8 +282,16 @@ export function AvisosModule() {
                   <div className="flex items-start justify-between gap-2">
                     <div className="flex-1 min-w-0">
                       <div className="text-sm font-medium text-slate-800">{a.texto}</div>
-                      <div className="text-xs text-slate-400 mt-1">
-                        Prioridad {a.prioridad} · {new Date(a.fechaInicio).toLocaleDateString()} → {new Date(a.fechaFin).toLocaleDateString()}
+                      <div className="text-xs text-slate-400 mt-1 flex items-center gap-1.5">
+                        <span
+                          className={`inline-block w-2.5 h-2.5 rounded-full ${
+                            COLORES.find((c) => c.valor === a.color)?.clase ?? "bg-slate-900"
+                          }`}
+                        />
+                        {COLORES.find((c) => c.valor === a.color)?.nombre ?? "Negro"} ·{" "}
+                        {a.indefinido
+                          ? "Permanente"
+                          : `${new Date(a.fechaInicio).toLocaleDateString()} → ${new Date(a.fechaFin).toLocaleDateString()}`}
                       </div>
                     </div>
                     <div className="flex items-center gap-1 flex-shrink-0">

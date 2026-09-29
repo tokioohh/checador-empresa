@@ -28,6 +28,7 @@ const adminFixture = {
   nombre: "Admin Test",
   rol: "ADMIN" as const,
   passwordHash: "$2b$12$hashedpassword",
+  createdAt: new Date(),
 };
 
 describe("POST /api/auth/login", () => {
@@ -120,6 +121,8 @@ describe("GET /api/auth/me", () => {
       correo: adminFixture.correo,
       nombre: adminFixture.nombre,
       rol: adminFixture.rol,
+      passwordHash: adminFixture.passwordHash,
+      createdAt: adminFixture.createdAt,
     });
 
     const res = await request(createApp())

@@ -20,12 +20,15 @@ export type Media = {
   updatedAt: string;
 };
 
+export type AvisoColor = "rojo" | "amarillo" | "verde" | "negro";
+
 export type Aviso = {
   id: string;
   texto: string;
-  prioridad: number;
+  color: AvisoColor;
   fechaInicio: string;
   fechaFin: string;
+  indefinido: boolean;
   activo: boolean;
   createdAt: string;
   updatedAt: string;
@@ -34,12 +37,15 @@ export type Aviso = {
 export type Empleado = {
   id: string;
   nombre: string;
+  apellidos: string;
   numeroEmpleado: string;
   correo: string | null;
   puesto: string | null;
   horarioEntrada: string | null;
   horarioSalida: string | null;
   estado: "ACTIVO" | "INACTIVO" | "BAJA";
+  estadoAsistencia?: "ACTIVO" | "INACTIVO";
+  ultimaAsistencia?: { tipo: "ENTRADA" | "SALIDA"; timestamp: string } | null;
   createdAt: string;
   updatedAt: string;
 };

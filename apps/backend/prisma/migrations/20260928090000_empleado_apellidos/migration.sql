@@ -1,0 +1,1 @@
+ALTER TABLE "empleados" ADD COLUMN "apellidos" TEXT NOT NULL DEFAULT '';

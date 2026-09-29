@@ -1133,6 +1133,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const EmpleadoScalarFieldEnum = {
   id: 'id',
   nombre: 'nombre',
+  apellidos: 'apellidos',
   numeroEmpleado: 'numeroEmpleado',
   correo: 'correo',
   puesto: 'puesto',
@@ -1190,9 +1191,10 @@ export type AsistenciaScalarFieldEnum = (typeof AsistenciaScalarFieldEnum)[keyof
 export const AvisoScalarFieldEnum = {
   id: 'id',
   texto: 'texto',
-  prioridad: 'prioridad',
+  color: 'color',
   fechaInicio: 'fechaInicio',
   fechaFin: 'fechaFin',
+  indefinido: 'indefinido',
   activo: 'activo',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -1389,20 +1391,6 @@ export type ListEnumPuntualidadFieldRefInput<$PrismaModel> = FieldRefInputType<$
 
 
 /**
- * Reference to a field of type 'Int'
- */
-export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
-    
-
-
-/**
- * Reference to a field of type 'Int[]'
- */
-export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
-    
-
-
-/**
  * Reference to a field of type 'TipoMedia'
  */
 export type EnumTipoMediaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMedia'>
@@ -1413,6 +1401,20 @@ export type EnumTipoMediaFieldRefInput<$PrismaModel> = FieldRefInputType<$Prisma
  * Reference to a field of type 'TipoMedia[]'
  */
 export type ListEnumTipoMediaFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TipoMedia[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Int'
+ */
+export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+/**
+ * Reference to a field of type 'Int[]'
+ */
+export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
     
 
 

@@ -1,4 +1,4 @@
-import type { Admin, Archivo, Aviso, Empleado, Media } from "./types";
+import type { Admin, Archivo, Aviso, AvisoColor, Empleado, Media } from "./types";
 
 const API_URL = import.meta.env.VITE_API_URL ?? "http://localhost:4000";
 
@@ -81,12 +81,12 @@ export const api = {
 
   // Avisos
   listarAvisos: () => request<{ avisos: Aviso[] }>("/api/admin/avisos"),
-  crearAviso: (data: { texto: string; prioridad: number; fechaInicio: string; fechaFin: string; activo: boolean }) =>
+  crearAviso: (data: { texto: string; color: AvisoColor; fechaInicio: string; fechaFin: string; indefinido: boolean; activo: boolean }) =>
     request<{ aviso: Aviso }>("/api/admin/avisos", {
       method: "POST",
       body: JSON.stringify(data),
     }),
-  actualizarAviso: (id: string, data: Partial<{ texto: string; prioridad: number; fechaInicio: string; fechaFin: string; activo: boolean }>) =>
+  actualizarAviso: (id: string, data: Partial<{ texto: string; color: AvisoColor; fechaInicio: string; fechaFin: string; indefinido: boolean; activo: boolean }>) =>
     request<{ aviso: Aviso }>(`/api/admin/avisos/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
@@ -94,6 +94,22 @@ export const api = {
   eliminarAviso: (id: string) =>
     request<void>(`/api/admin/avisos/${id}`, { method: "DELETE" }),
 
-  // Empleados (solo lectura, para el módulo estético)
+  // Empleados
   listarEmpleados: () => request<{ empleados: Empleado[] }>("/api/empleados"),
+  crearEmpleado: (data: {
+    nombre: string;
+    apellidos: string;
+    numeroEmpleado: string;
+    correo?: string;
+    puesto?: string;
+    horarioEntrada?: string;
+    horarioSalida?: string;
+  }) => request<{ empleado: Empleado }>("/api/empleados", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }),
+  crearCodigoActivacion: (empleadoId: string) =>
+    request<{ activacion: { codigo: string; expiraEn: string } }>(`/api/empleados/${empleadoId}/codigo-activacion`, {
+      method: "POST",
+    }),
 };

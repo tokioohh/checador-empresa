@@ -37,9 +37,12 @@ tvRouter.get("/avisos", async (_req, res) => {
     where: {
       activo: true,
       fechaInicio: { lte: now },
-      fechaFin: { gte: now },
+      OR: [
+        { indefinido: true },
+        { fechaFin: { gte: now } },
+      ],
     },
-    orderBy: { prioridad: "desc" },
+    orderBy: { fechaInicio: "asc" },
   });
   return res.json({ avisos });
 });
@@ -48,6 +51,7 @@ tvRouter.get("/avisos", async (_req, res) => {
 tvRouter.post("/test-broadcast", (_req, res) => {
   broadcastTvEvent({
     type: "asistencia:success",
+    tipo: "ENTRADA",
     empleado: { nombre: "Juan Pérez", puesto: "Desarrollador" },
     timestamp: new Date().toISOString(),
   });

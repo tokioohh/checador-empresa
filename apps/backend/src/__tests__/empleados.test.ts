@@ -29,15 +29,17 @@ const authHeader = { Authorization: `Bearer ${TOKEN}` };
 
 const empleadoFixture = {
   id: "emp-uuid-1",
-  nombre: "Juan Pérez",
+  nombre: "Juan",
+  apellidos: "Pérez",
   numeroEmpleado: "EMP001",
   correo: "juan@empresa.com",
   puesto: "Operador",
   horarioEntrada: "08:00",
   horarioSalida: "17:00",
   estado: "ACTIVO" as const,
-  createdAt: new Date().toISOString(),
-  updatedAt: new Date().toISOString(),
+  passwordHash: null,
+  createdAt: new Date(),
+  updatedAt: new Date(),
 };
 
 describe("GET /api/empleados — requiere auth", () => {
@@ -51,7 +53,10 @@ describe("GET /api/empleados", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("returns list of empleados", async () => {
-    mockEmpleado.findMany.mockResolvedValueOnce([empleadoFixture]);
+    mockEmpleado.findMany.mockResolvedValueOnce([{
+      ...empleadoFixture,
+      asistencias: [{ tipo: "ENTRADA", timestamp: new Date() }],
+    }] as never);
 
     const res = await request(createApp())
       .get("/api/empleados")
@@ -59,7 +64,10 @@ describe("GET /api/empleados", () => {
 
     expect(res.status).toBe(200);
     expect(res.body.empleados).toHaveLength(1);
-    expect(res.body.empleados[0].nombre).toBe("Juan Pérez");
+    expect(res.body.empleados[0].nombre).toBe("Juan");
+    expect(res.body.empleados[0].apellidos).toBe("Pérez");
+    expect(res.body.empleados[0].estadoAsistencia).toBe("ACTIVO");
+    expect(res.body.empleados[0].ultimaAsistencia.tipo).toBe("ENTRADA");
   });
 
   it("returns empty array when no empleados", async () => {
@@ -81,7 +89,7 @@ describe("GET /api/empleados/:id", () => {
     mockEmpleado.findUnique.mockResolvedValueOnce({
       ...empleadoFixture,
       dispositivos: [],
-    });
+    } as never);
 
     const res = await request(createApp())
       .get(`/api/empleados/${empleadoFixture.id}`)
@@ -112,7 +120,8 @@ describe("POST /api/empleados", () => {
       .post("/api/empleados")
       .set(authHeader)
       .send({
-        nombre: "Juan Pérez",
+        nombre: "Juan",
+        apellidos: "Pérez",
         numeroEmpleado: "EMP001",
         correo: "juan@empresa.com",
         puesto: "Operador",

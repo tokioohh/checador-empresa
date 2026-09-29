@@ -17,3 +17,9 @@ export function mediaDir(): string {
   fs.mkdirSync(dir, { recursive: true });
   return dir;
 }
+
+export function attendancePhotoDir(): string {
+  const dir = path.join(resolveStoragePath(env.STORAGE_PATH), "fotos-asistencia");
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}

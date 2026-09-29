@@ -2,10 +2,9 @@
 
 Monorepo del sistema de checador de empleados.
 
-**Estado actual: Fases 1–4 (backend + TV + panel admin) y borrador de la app móvil.**
-La app móvil (Expo / React Native) ya tiene un borrador en `apps/mobile` (login,
-escaneo QR, setup de dispositivo y biometría); queda completar su integración.
-Pendiente también el endurecimiento de producción.
+**Estado actual: backend + TV + panel admin con alta de empleados, activación por
+código, registro de asistencia con foto obligatoria que alterna ENTRADA/SALIDA, y
+avisos con color y permanentes.**
 
 El flujo del sistema es: los empleados escanean un **QR rotativo** que aparece
 en una **TV**, lo escanean con su teléfono y confirman su identidad con la
@@ -113,15 +112,16 @@ Credenciales de admin por defecto (del seed): `admin@empresa.com` / `changeme123
 | GET | `/api/empleados` | Admin | Lista empleados (filtros: `estado`, `busqueda`) |
 | GET | `/api/empleados/:id` | Admin | Detalle de un empleado |
 | POST | `/api/empleados` | Admin | Crea un empleado |
+| POST | `/api/empleados/:id/codigo-activacion` | Admin | Genera el QR temporal para vincular el teléfono |
 | PUT | `/api/empleados/:id` | Admin | Actualiza datos |
 | PATCH | `/api/empleados/:id/estado` | Admin | Cambia estado (ACTIVO/INACTIVO/BAJA) |
 
 ### Dispositivos y check-in
 | Método | Ruta | Auth | Descripción |
 |---|---|---|---|
-| POST | `/api/dispositivos/activar` | Empleado | Vincula un dispositivo (código de activación + llave pública) |
-| POST | `/api/asistencias/challenge` | Empleado | Inicia el challenge tras escanear el QR |
-| POST | `/api/asistencias/` | Empleado | Registra asistencia con la firma del challenge |
+| POST | `/api/dispositivos/activar` | Código de un solo uso | Vincula el teléfono al empleado del código |
+| POST | `/api/asistencias/challenge` | Dispositivo | Inicia el challenge tras escanear el QR rotativo de la TV |
+| POST | `/api/asistencias/` | Firma + foto | Guarda la foto y registra la asistencia del empleado vinculado |
 | GET | `/api/asistencias/qr` | Admin | Obtiene el QR actual |
 
 ### TV (público, sin auth)
@@ -129,10 +129,10 @@ Credenciales de admin por defecto (del seed): `admin@empresa.com` / `changeme123
 |---|---|---|
 | GET | `/api/tv/qr` | QR actual (`qrToken` + `expiresInMs`) |
 | GET | `/api/tv/media` | Multimedia activa de la cola |
-| GET | `/api/tv/avisos` | Avisos activos (dentro de vigencia) |
+| GET | `/api/tv/avisos` | Avisos activos (vigentes o permanentes) |
 | WS | `/api/tv/ws` | WebSocket de eventos de check-in |
 
-Eventos del WebSocket: `asistencia:success` y `asistencia:error`.
+Eventos del WebSocket: `asistencia:success` (incluye `tipo` ENTRADA/SALIDA) y `asistencia:error`.
 
 ### Admin (requiere auth de admin)
 | Método | Ruta | Descripción |
@@ -145,18 +145,22 @@ Eventos del WebSocket: `asistencia:success` y `asistencia:error`.
 | PUT | `/api/admin/media/:id` | Actualiza orden / activo / duración |
 | DELETE | `/api/admin/media/:id` | Quita un elemento de la cola |
 | GET | `/api/admin/avisos` | Lista avisos |
-| POST | `/api/admin/avisos` | Crea aviso (`texto`, `prioridad`, `fechaInicio`, `fechaFin`, `activo`) |
+| POST | `/api/admin/avisos` | Crea aviso (`texto`, `color`, `fechaInicio`, `fechaFin`, `indefinido`, `activo`) |
 | PUT | `/api/admin/avisos/:id` | Actualiza aviso |
 | DELETE | `/api/admin/avisos/:id` | Borra aviso |
 
 **Subida de archivos:** máximo **10 MB**. Formatos permitidos: JPEG, PNG, GIF,
 WEBP, SVG (imágenes) y MP4, WEBM, MOV (videos).
 
-Rutas con "Auth: Admin/Empleado" requieren header `Authorization: Bearer <token>`.
+Las rutas de admin y el CRUD de empleados requieren `Authorization: Bearer <token>`.
+La activación de dispositivos se autoriza con el código de activación (no requiere
+token JWT del empleado). La asistencia alterna automáticamente entre ENTRADA y
+SALIDA: cada escaneo invierte el estado anterior. La foto es obligatoria
+(`multipart/form-data`, campo `foto`) y se verifica junto con la firma del challenge.
 
 ## Modelo de datos (resumen)
 
-- `Empleado`, `Dispositivo`, `CodigoActivacion`, `Asistencia`, `Aviso`, `Admin`, `Log`.
+- `Empleado` (nombre y apellidos), `Dispositivo`, `CodigoActivacion`, `Asistencia`, `Aviso`, `Admin`, `Log`.
 - `Archivo` — biblioteca de archivos multimedia subidos (se guardan una vez y
   se reutilizan).
 - `Media` — elemento de la cola de reproducción de la TV; referencia un `Archivo`
@@ -168,13 +172,16 @@ Rutas con "Auth: Admin/Empleado" requieren header `Authorization: Bearer <token>
   llave pública que el celular genera (esquema tipo passkey). La huella solo
   desbloquea la llave privada dentro del teléfono para firmar el challenge.
 - **`Asistencia` está unificada** (no hay tablas separadas de Entradas/Salidas),
-  con un campo `tipo`. El `timestamp` lo genera el servidor.
+  con un campo `tipo`. El `timestamp` lo genera el servidor. Cada escaneo del QR
+  **alterna** ENTRADA↔SALIDA según el último registro del empleado.
+- **Los avisos tienen color** (rojo, amarillo, verde o negro) y pueden ser
+  **permanentes** (`indefinido`) para recordatorios que no expiran.
 - **Baja de empleado = baja lógica.** No existe `DELETE` físico; se usa
   `PATCH /empleados/:id/estado`.
 - **El QR de asistencia (rotativo, 30s) no se guarda en base de datos.** Se
   genera y valida como token firmado (HMAC + ventana temporal).
 - **Storage en disco**, no en la BD ni en un bucket externo: `storage/` guarda
-  archivos; en Postgres solo se guarda la ruta relativa.
+  archivos multimedia y fotos de asistencia; en Postgres solo se guarda la ruta relativa de la foto.
 - **Biblioteca vs cola:** los archivos se suben a la biblioteca una sola vez y
   se reutilizan en la cola de reproducción. Borrar un archivo de la biblioteca
   lo quita de todas las colas donde esté.

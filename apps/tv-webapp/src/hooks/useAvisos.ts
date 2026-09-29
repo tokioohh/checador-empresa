@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export type Aviso = {
   id: string;
   texto: string;
-  prioridad: number;
+  color: "rojo" | "amarillo" | "verde" | "negro";
 };
 
 export function useAvisos(apiUrl: string) {

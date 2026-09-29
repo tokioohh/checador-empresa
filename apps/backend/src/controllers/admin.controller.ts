@@ -28,11 +28,14 @@ const actualizarMediaSchema = z.object({
   activo: z.boolean().optional(),
 });
 
+const avisoColorSchema = z.enum(["rojo", "amarillo", "verde", "negro"]);
+
 const crearAvisoSchema = z.object({
   texto: z.string().min(1),
-  prioridad: z.number().int().optional(),
+  color: avisoColorSchema.default("negro"),
   fechaInicio: z.coerce.date(),
   fechaFin: z.coerce.date(),
+  indefinido: z.boolean().optional(),
   activo: z.boolean().optional(),
 });
 
@@ -133,7 +136,7 @@ export async function eliminarMedia(req: Request, res: Response) {
 // ---- Avisos ----
 export async function listarAvisos(_req: Request, res: Response) {
   const avisos = await prisma.aviso.findMany({
-    orderBy: [{ activo: "desc" }, { prioridad: "desc" }, { fechaInicio: "asc" }],
+    orderBy: [{ activo: "desc" }, { fechaInicio: "asc" }],
   });
   return res.json({ avisos });
 }

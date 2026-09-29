@@ -52,13 +52,15 @@ export function WelcomeOverlay({ event }: { event: TvEvent | null }) {
   );
 
   const message = isSuccess
-    ? `¡Bienvenido, ${current.empleado.nombre}!`
+    ? current.tipo === "ENTRADA"
+      ? `¡Bienvenido, ${current.empleado.nombre}!`
+      : `¡Hasta luego, ${current.empleado.nombre}!`
     : current.error;
 
-  const subMessage = isSuccess && current.empleado.puesto
-    ? current.empleado.puesto
-    : isSuccess
-    ? "Registro exitoso"
+  const subMessage = isSuccess
+    ? [current.empleado.puesto, current.tipo === "ENTRADA" ? "Entrada registrada" : "Salida registrada"]
+      .filter(Boolean)
+      .join(" · ")
     : "Por favor intenta de nuevo";
 
   return (

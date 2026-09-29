@@ -409,6 +409,14 @@ export type EnumTipoMediaFieldUpdateOperationsInput = {
   set?: $Enums.TipoMedia
 }
 
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type ArchivoCreateNestedOneWithoutMediaInput = {
   create?: Prisma.XOR<Prisma.ArchivoCreateWithoutMediaInput, Prisma.ArchivoUncheckedCreateWithoutMediaInput>
   connectOrCreate?: Prisma.ArchivoCreateOrConnectWithoutMediaInput

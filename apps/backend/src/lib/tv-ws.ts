@@ -15,7 +15,7 @@ export function initTvWebSocket(server: Server) {
 }
 
 export type TvEvent =
-  | { type: "asistencia:success"; empleado: { nombre: string; puesto: string | null }; timestamp: string }
+  | { type: "asistencia:success"; tipo: "ENTRADA" | "SALIDA"; empleado: { nombre: string; puesto: string | null }; timestamp: string }
   | { type: "asistencia:error"; error: string };
 
 export function broadcastTvEvent(event: TvEvent) {
