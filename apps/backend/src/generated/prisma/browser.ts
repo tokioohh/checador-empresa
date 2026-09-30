@@ -43,6 +43,11 @@ export type Asistencia = Prisma.AsistenciaModel
  */
 export type Aviso = Prisma.AvisoModel
 /**
+ * Model Archivo
+ * 
+ */
+export type Archivo = Prisma.ArchivoModel
+/**
  * Model Media
  * 
  */

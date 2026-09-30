@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- Banner placeholder para Android TV -->
+    <!-- Dimensiones: 320x180px recomendado -->
+    <!-- Reemplaza este archivo con un PNG/JPG real: tv_banner.png -->
+    <solid android:color="#3b82f6" />
+    <corners android:radius="8dp" />
+</shape>

@@ -20,26 +20,17 @@ export type AvisoModel = runtime.Types.Result.DefaultSelection<Prisma.$AvisoPayl
 
 export type AggregateAviso = {
   _count: AvisoCountAggregateOutputType | null
-  _avg: AvisoAvgAggregateOutputType | null
-  _sum: AvisoSumAggregateOutputType | null
   _min: AvisoMinAggregateOutputType | null
   _max: AvisoMaxAggregateOutputType | null
-}
-
-export type AvisoAvgAggregateOutputType = {
-  prioridad: number | null
-}
-
-export type AvisoSumAggregateOutputType = {
-  prioridad: number | null
 }
 
 export type AvisoMinAggregateOutputType = {
   id: string | null
   texto: string | null
-  prioridad: number | null
+  color: string | null
   fechaInicio: Date | null
   fechaFin: Date | null
+  indefinido: boolean | null
   activo: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -48,9 +39,10 @@ export type AvisoMinAggregateOutputType = {
 export type AvisoMaxAggregateOutputType = {
   id: string | null
   texto: string | null
-  prioridad: number | null
+  color: string | null
   fechaInicio: Date | null
   fechaFin: Date | null
+  indefinido: boolean | null
   activo: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,9 +51,10 @@ export type AvisoMaxAggregateOutputType = {
 export type AvisoCountAggregateOutputType = {
   id: number
   texto: number
-  prioridad: number
+  color: number
   fechaInicio: number
   fechaFin: number
+  indefinido: number
   activo: number
   createdAt: number
   updatedAt: number
@@ -69,20 +62,13 @@ export type AvisoCountAggregateOutputType = {
 }
 
 
-export type AvisoAvgAggregateInputType = {
-  prioridad?: true
-}
-
-export type AvisoSumAggregateInputType = {
-  prioridad?: true
-}
-
 export type AvisoMinAggregateInputType = {
   id?: true
   texto?: true
-  prioridad?: true
+  color?: true
   fechaInicio?: true
   fechaFin?: true
+  indefinido?: true
   activo?: true
   createdAt?: true
   updatedAt?: true
@@ -91,9 +77,10 @@ export type AvisoMinAggregateInputType = {
 export type AvisoMaxAggregateInputType = {
   id?: true
   texto?: true
-  prioridad?: true
+  color?: true
   fechaInicio?: true
   fechaFin?: true
+  indefinido?: true
   activo?: true
   createdAt?: true
   updatedAt?: true
@@ -102,9 +89,10 @@ export type AvisoMaxAggregateInputType = {
 export type AvisoCountAggregateInputType = {
   id?: true
   texto?: true
-  prioridad?: true
+  color?: true
   fechaInicio?: true
   fechaFin?: true
+  indefinido?: true
   activo?: true
   createdAt?: true
   updatedAt?: true
@@ -149,18 +137,6 @@ export type AvisoAggregateArgs<ExtArgs extends runtime.Types.Extensions.Internal
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: AvisoAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: AvisoSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: AvisoMinAggregateInputType
@@ -191,8 +167,6 @@ export type AvisoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   _count?: AvisoCountAggregateInputType | true
-  _avg?: AvisoAvgAggregateInputType
-  _sum?: AvisoSumAggregateInputType
   _min?: AvisoMinAggregateInputType
   _max?: AvisoMaxAggregateInputType
 }
@@ -200,15 +174,14 @@ export type AvisoGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type AvisoGroupByOutputType = {
   id: string
   texto: string
-  prioridad: number
+  color: string
   fechaInicio: Date
   fechaFin: Date
+  indefinido: boolean
   activo: boolean
   createdAt: Date
   updatedAt: Date
   _count: AvisoCountAggregateOutputType | null
-  _avg: AvisoAvgAggregateOutputType | null
-  _sum: AvisoSumAggregateOutputType | null
   _min: AvisoMinAggregateOutputType | null
   _max: AvisoMaxAggregateOutputType | null
 }
@@ -234,9 +207,10 @@ export type AvisoWhereInput = {
   NOT?: Prisma.AvisoWhereInput | Prisma.AvisoWhereInput[]
   id?: Prisma.StringFilter<"Aviso"> | string
   texto?: Prisma.StringFilter<"Aviso"> | string
-  prioridad?: Prisma.IntFilter<"Aviso"> | number
+  color?: Prisma.StringFilter<"Aviso"> | string
   fechaInicio?: Prisma.DateTimeFilter<"Aviso"> | Date | string
   fechaFin?: Prisma.DateTimeFilter<"Aviso"> | Date | string
+  indefinido?: Prisma.BoolFilter<"Aviso"> | boolean
   activo?: Prisma.BoolFilter<"Aviso"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Aviso"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Aviso"> | Date | string
@@ -245,9 +219,10 @@ export type AvisoWhereInput = {
 export type AvisoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   texto?: Prisma.SortOrder
-  prioridad?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   fechaInicio?: Prisma.SortOrder
   fechaFin?: Prisma.SortOrder
+  indefinido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -259,9 +234,10 @@ export type AvisoWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.AvisoWhereInput[]
   NOT?: Prisma.AvisoWhereInput | Prisma.AvisoWhereInput[]
   texto?: Prisma.StringFilter<"Aviso"> | string
-  prioridad?: Prisma.IntFilter<"Aviso"> | number
+  color?: Prisma.StringFilter<"Aviso"> | string
   fechaInicio?: Prisma.DateTimeFilter<"Aviso"> | Date | string
   fechaFin?: Prisma.DateTimeFilter<"Aviso"> | Date | string
+  indefinido?: Prisma.BoolFilter<"Aviso"> | boolean
   activo?: Prisma.BoolFilter<"Aviso"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Aviso"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Aviso"> | Date | string
@@ -270,17 +246,16 @@ export type AvisoWhereUniqueInput = Prisma.AtLeast<{
 export type AvisoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   texto?: Prisma.SortOrder
-  prioridad?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   fechaInicio?: Prisma.SortOrder
   fechaFin?: Prisma.SortOrder
+  indefinido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.AvisoCountOrderByAggregateInput
-  _avg?: Prisma.AvisoAvgOrderByAggregateInput
   _max?: Prisma.AvisoMaxOrderByAggregateInput
   _min?: Prisma.AvisoMinOrderByAggregateInput
-  _sum?: Prisma.AvisoSumOrderByAggregateInput
 }
 
 export type AvisoScalarWhereWithAggregatesInput = {
@@ -289,9 +264,10 @@ export type AvisoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AvisoScalarWhereWithAggregatesInput | Prisma.AvisoScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Aviso"> | string
   texto?: Prisma.StringWithAggregatesFilter<"Aviso"> | string
-  prioridad?: Prisma.IntWithAggregatesFilter<"Aviso"> | number
+  color?: Prisma.StringWithAggregatesFilter<"Aviso"> | string
   fechaInicio?: Prisma.DateTimeWithAggregatesFilter<"Aviso"> | Date | string
   fechaFin?: Prisma.DateTimeWithAggregatesFilter<"Aviso"> | Date | string
+  indefinido?: Prisma.BoolWithAggregatesFilter<"Aviso"> | boolean
   activo?: Prisma.BoolWithAggregatesFilter<"Aviso"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Aviso"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Aviso"> | Date | string
@@ -300,9 +276,10 @@ export type AvisoScalarWhereWithAggregatesInput = {
 export type AvisoCreateInput = {
   id?: string
   texto: string
-  prioridad?: number
+  color?: string
   fechaInicio: Date | string
   fechaFin: Date | string
+  indefinido?: boolean
   activo?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -311,9 +288,10 @@ export type AvisoCreateInput = {
 export type AvisoUncheckedCreateInput = {
   id?: string
   texto: string
-  prioridad?: number
+  color?: string
   fechaInicio: Date | string
   fechaFin: Date | string
+  indefinido?: boolean
   activo?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -322,9 +300,10 @@ export type AvisoUncheckedCreateInput = {
 export type AvisoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   texto?: Prisma.StringFieldUpdateOperationsInput | string
-  prioridad?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   fechaInicio?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaFin?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  indefinido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -333,9 +312,10 @@ export type AvisoUpdateInput = {
 export type AvisoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   texto?: Prisma.StringFieldUpdateOperationsInput | string
-  prioridad?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   fechaInicio?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaFin?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  indefinido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -344,9 +324,10 @@ export type AvisoUncheckedUpdateInput = {
 export type AvisoCreateManyInput = {
   id?: string
   texto: string
-  prioridad?: number
+  color?: string
   fechaInicio: Date | string
   fechaFin: Date | string
+  indefinido?: boolean
   activo?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -355,9 +336,10 @@ export type AvisoCreateManyInput = {
 export type AvisoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   texto?: Prisma.StringFieldUpdateOperationsInput | string
-  prioridad?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   fechaInicio?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaFin?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  indefinido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -366,9 +348,10 @@ export type AvisoUpdateManyMutationInput = {
 export type AvisoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   texto?: Prisma.StringFieldUpdateOperationsInput | string
-  prioridad?: Prisma.IntFieldUpdateOperationsInput | number
+  color?: Prisma.StringFieldUpdateOperationsInput | string
   fechaInicio?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fechaFin?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  indefinido?: Prisma.BoolFieldUpdateOperationsInput | boolean
   activo?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -377,24 +360,22 @@ export type AvisoUncheckedUpdateManyInput = {
 export type AvisoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   texto?: Prisma.SortOrder
-  prioridad?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   fechaInicio?: Prisma.SortOrder
   fechaFin?: Prisma.SortOrder
+  indefinido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type AvisoAvgOrderByAggregateInput = {
-  prioridad?: Prisma.SortOrder
-}
-
 export type AvisoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   texto?: Prisma.SortOrder
-  prioridad?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   fechaInicio?: Prisma.SortOrder
   fechaFin?: Prisma.SortOrder
+  indefinido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -403,24 +384,13 @@ export type AvisoMaxOrderByAggregateInput = {
 export type AvisoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   texto?: Prisma.SortOrder
-  prioridad?: Prisma.SortOrder
+  color?: Prisma.SortOrder
   fechaInicio?: Prisma.SortOrder
   fechaFin?: Prisma.SortOrder
+  indefinido?: Prisma.SortOrder
   activo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type AvisoSumOrderByAggregateInput = {
-  prioridad?: Prisma.SortOrder
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 
@@ -428,9 +398,10 @@ export type IntFieldUpdateOperationsInput = {
 export type AvisoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   texto?: boolean
-  prioridad?: boolean
+  color?: boolean
   fechaInicio?: boolean
   fechaFin?: boolean
+  indefinido?: boolean
   activo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -439,9 +410,10 @@ export type AvisoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type AvisoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   texto?: boolean
-  prioridad?: boolean
+  color?: boolean
   fechaInicio?: boolean
   fechaFin?: boolean
+  indefinido?: boolean
   activo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -450,9 +422,10 @@ export type AvisoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type AvisoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   texto?: boolean
-  prioridad?: boolean
+  color?: boolean
   fechaInicio?: boolean
   fechaFin?: boolean
+  indefinido?: boolean
   activo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -461,15 +434,16 @@ export type AvisoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type AvisoSelectScalar = {
   id?: boolean
   texto?: boolean
-  prioridad?: boolean
+  color?: boolean
   fechaInicio?: boolean
   fechaFin?: boolean
+  indefinido?: boolean
   activo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type AvisoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "texto" | "prioridad" | "fechaInicio" | "fechaFin" | "activo" | "createdAt" | "updatedAt", ExtArgs["result"]["aviso"]>
+export type AvisoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "texto" | "color" | "fechaInicio" | "fechaFin" | "indefinido" | "activo" | "createdAt" | "updatedAt", ExtArgs["result"]["aviso"]>
 
 export type $AvisoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Aviso"
@@ -477,9 +451,10 @@ export type $AvisoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     texto: string
-    prioridad: number
+    color: string
     fechaInicio: Date
     fechaFin: Date
+    indefinido: boolean
     activo: boolean
     createdAt: Date
     updatedAt: Date
@@ -908,9 +883,10 @@ export interface Prisma__AvisoClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface AvisoFieldRefs {
   readonly id: Prisma.FieldRef<"Aviso", 'String'>
   readonly texto: Prisma.FieldRef<"Aviso", 'String'>
-  readonly prioridad: Prisma.FieldRef<"Aviso", 'Int'>
+  readonly color: Prisma.FieldRef<"Aviso", 'String'>
   readonly fechaInicio: Prisma.FieldRef<"Aviso", 'DateTime'>
   readonly fechaFin: Prisma.FieldRef<"Aviso", 'DateTime'>
+  readonly indefinido: Prisma.FieldRef<"Aviso", 'Boolean'>
   readonly activo: Prisma.FieldRef<"Aviso", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Aviso", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Aviso", 'DateTime'>

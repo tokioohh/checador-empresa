@@ -27,12 +27,14 @@ export type AggregateEmpleado = {
 export type EmpleadoMinAggregateOutputType = {
   id: string | null
   nombre: string | null
+  apellidos: string | null
   numeroEmpleado: string | null
   correo: string | null
   puesto: string | null
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -40,12 +42,14 @@ export type EmpleadoMinAggregateOutputType = {
 export type EmpleadoMaxAggregateOutputType = {
   id: string | null
   nombre: string | null
+  apellidos: string | null
   numeroEmpleado: string | null
   correo: string | null
   puesto: string | null
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado | null
+  passwordHash: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,12 +57,14 @@ export type EmpleadoMaxAggregateOutputType = {
 export type EmpleadoCountAggregateOutputType = {
   id: number
   nombre: number
+  apellidos: number
   numeroEmpleado: number
   correo: number
   puesto: number
   horarioEntrada: number
   horarioSalida: number
   estado: number
+  passwordHash: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -68,12 +74,14 @@ export type EmpleadoCountAggregateOutputType = {
 export type EmpleadoMinAggregateInputType = {
   id?: true
   nombre?: true
+  apellidos?: true
   numeroEmpleado?: true
   correo?: true
   puesto?: true
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -81,12 +89,14 @@ export type EmpleadoMinAggregateInputType = {
 export type EmpleadoMaxAggregateInputType = {
   id?: true
   nombre?: true
+  apellidos?: true
   numeroEmpleado?: true
   correo?: true
   puesto?: true
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -94,12 +104,14 @@ export type EmpleadoMaxAggregateInputType = {
 export type EmpleadoCountAggregateInputType = {
   id?: true
   nombre?: true
+  apellidos?: true
   numeroEmpleado?: true
   correo?: true
   puesto?: true
   horarioEntrada?: true
   horarioSalida?: true
   estado?: true
+  passwordHash?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -180,12 +192,14 @@ export type EmpleadoGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 export type EmpleadoGroupByOutputType = {
   id: string
   nombre: string
+  apellidos: string
   numeroEmpleado: string
   correo: string | null
   puesto: string | null
   horarioEntrada: string | null
   horarioSalida: string | null
   estado: $Enums.EstadoEmpleado
+  passwordHash: string | null
   createdAt: Date
   updatedAt: Date
   _count: EmpleadoCountAggregateOutputType | null
@@ -214,12 +228,14 @@ export type EmpleadoWhereInput = {
   NOT?: Prisma.EmpleadoWhereInput | Prisma.EmpleadoWhereInput[]
   id?: Prisma.StringFilter<"Empleado"> | string
   nombre?: Prisma.StringFilter<"Empleado"> | string
+  apellidos?: Prisma.StringFilter<"Empleado"> | string
   numeroEmpleado?: Prisma.StringFilter<"Empleado"> | string
   correo?: Prisma.StringNullableFilter<"Empleado"> | string | null
   puesto?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioEntrada?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   dispositivos?: Prisma.DispositivoListRelationFilter
@@ -230,12 +246,14 @@ export type EmpleadoWhereInput = {
 export type EmpleadoOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  apellidos?: Prisma.SortOrder
   numeroEmpleado?: Prisma.SortOrder
   correo?: Prisma.SortOrderInput | Prisma.SortOrder
   puesto?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioEntrada?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioSalida?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   dispositivos?: Prisma.DispositivoOrderByRelationAggregateInput
@@ -251,10 +269,12 @@ export type EmpleadoWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.EmpleadoWhereInput[]
   NOT?: Prisma.EmpleadoWhereInput | Prisma.EmpleadoWhereInput[]
   nombre?: Prisma.StringFilter<"Empleado"> | string
+  apellidos?: Prisma.StringFilter<"Empleado"> | string
   puesto?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioEntrada?: Prisma.StringNullableFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Empleado"> | Date | string
   dispositivos?: Prisma.DispositivoListRelationFilter
@@ -265,12 +285,14 @@ export type EmpleadoWhereUniqueInput = Prisma.AtLeast<{
 export type EmpleadoOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  apellidos?: Prisma.SortOrder
   numeroEmpleado?: Prisma.SortOrder
   correo?: Prisma.SortOrderInput | Prisma.SortOrder
   puesto?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioEntrada?: Prisma.SortOrderInput | Prisma.SortOrder
   horarioSalida?: Prisma.SortOrderInput | Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.EmpleadoCountOrderByAggregateInput
@@ -284,12 +306,14 @@ export type EmpleadoScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EmpleadoScalarWhereWithAggregatesInput | Prisma.EmpleadoScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Empleado"> | string
   nombre?: Prisma.StringWithAggregatesFilter<"Empleado"> | string
+  apellidos?: Prisma.StringWithAggregatesFilter<"Empleado"> | string
   numeroEmpleado?: Prisma.StringWithAggregatesFilter<"Empleado"> | string
   correo?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   puesto?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   horarioEntrada?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   horarioSalida?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   estado?: Prisma.EnumEstadoEmpleadoWithAggregatesFilter<"Empleado"> | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.StringNullableWithAggregatesFilter<"Empleado"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Empleado"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Empleado"> | Date | string
 }
@@ -297,12 +321,14 @@ export type EmpleadoScalarWhereWithAggregatesInput = {
 export type EmpleadoCreateInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -313,12 +339,14 @@ export type EmpleadoCreateInput = {
 export type EmpleadoUncheckedCreateInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -329,12 +357,14 @@ export type EmpleadoUncheckedCreateInput = {
 export type EmpleadoUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -345,12 +375,14 @@ export type EmpleadoUpdateInput = {
 export type EmpleadoUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -361,12 +393,14 @@ export type EmpleadoUncheckedUpdateInput = {
 export type EmpleadoCreateManyInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -374,12 +408,14 @@ export type EmpleadoCreateManyInput = {
 export type EmpleadoUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -387,12 +423,14 @@ export type EmpleadoUpdateManyMutationInput = {
 export type EmpleadoUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -400,12 +438,14 @@ export type EmpleadoUncheckedUpdateManyInput = {
 export type EmpleadoCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  apellidos?: Prisma.SortOrder
   numeroEmpleado?: Prisma.SortOrder
   correo?: Prisma.SortOrder
   puesto?: Prisma.SortOrder
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -413,12 +453,14 @@ export type EmpleadoCountOrderByAggregateInput = {
 export type EmpleadoMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  apellidos?: Prisma.SortOrder
   numeroEmpleado?: Prisma.SortOrder
   correo?: Prisma.SortOrder
   puesto?: Prisma.SortOrder
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -426,12 +468,14 @@ export type EmpleadoMaxOrderByAggregateInput = {
 export type EmpleadoMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
+  apellidos?: Prisma.SortOrder
   numeroEmpleado?: Prisma.SortOrder
   correo?: Prisma.SortOrder
   puesto?: Prisma.SortOrder
   horarioEntrada?: Prisma.SortOrder
   horarioSalida?: Prisma.SortOrder
   estado?: Prisma.SortOrder
+  passwordHash?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -502,12 +546,14 @@ export type EmpleadoUpdateOneRequiredWithoutAsistenciasNestedInput = {
 export type EmpleadoCreateWithoutDispositivosInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   asistencias?: Prisma.AsistenciaCreateNestedManyWithoutEmpleadoInput
@@ -517,12 +563,14 @@ export type EmpleadoCreateWithoutDispositivosInput = {
 export type EmpleadoUncheckedCreateWithoutDispositivosInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   asistencias?: Prisma.AsistenciaUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -548,12 +596,14 @@ export type EmpleadoUpdateToOneWithWhereWithoutDispositivosInput = {
 export type EmpleadoUpdateWithoutDispositivosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   asistencias?: Prisma.AsistenciaUpdateManyWithoutEmpleadoNestedInput
@@ -563,12 +613,14 @@ export type EmpleadoUpdateWithoutDispositivosInput = {
 export type EmpleadoUncheckedUpdateWithoutDispositivosInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   asistencias?: Prisma.AsistenciaUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -578,12 +630,14 @@ export type EmpleadoUncheckedUpdateWithoutDispositivosInput = {
 export type EmpleadoCreateWithoutCodigosActivacionInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -593,12 +647,14 @@ export type EmpleadoCreateWithoutCodigosActivacionInput = {
 export type EmpleadoUncheckedCreateWithoutCodigosActivacionInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -624,12 +680,14 @@ export type EmpleadoUpdateToOneWithWhereWithoutCodigosActivacionInput = {
 export type EmpleadoUpdateWithoutCodigosActivacionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -639,12 +697,14 @@ export type EmpleadoUpdateWithoutCodigosActivacionInput = {
 export type EmpleadoUncheckedUpdateWithoutCodigosActivacionInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -654,12 +714,14 @@ export type EmpleadoUncheckedUpdateWithoutCodigosActivacionInput = {
 export type EmpleadoCreateWithoutAsistenciasInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoCreateNestedManyWithoutEmpleadoInput
@@ -669,12 +731,14 @@ export type EmpleadoCreateWithoutAsistenciasInput = {
 export type EmpleadoUncheckedCreateWithoutAsistenciasInput = {
   id?: string
   nombre: string
+  apellidos?: string
   numeroEmpleado: string
   correo?: string | null
   puesto?: string | null
   horarioEntrada?: string | null
   horarioSalida?: string | null
   estado?: $Enums.EstadoEmpleado
+  passwordHash?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   dispositivos?: Prisma.DispositivoUncheckedCreateNestedManyWithoutEmpleadoInput
@@ -700,12 +764,14 @@ export type EmpleadoUpdateToOneWithWhereWithoutAsistenciasInput = {
 export type EmpleadoUpdateWithoutAsistenciasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUpdateManyWithoutEmpleadoNestedInput
@@ -715,12 +781,14 @@ export type EmpleadoUpdateWithoutAsistenciasInput = {
 export type EmpleadoUncheckedUpdateWithoutAsistenciasInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellidos?: Prisma.StringFieldUpdateOperationsInput | string
   numeroEmpleado?: Prisma.StringFieldUpdateOperationsInput | string
   correo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   puesto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioEntrada?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   horarioSalida?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estado?: Prisma.EnumEstadoEmpleadoFieldUpdateOperationsInput | $Enums.EstadoEmpleado
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   dispositivos?: Prisma.DispositivoUncheckedUpdateManyWithoutEmpleadoNestedInput
@@ -779,12 +847,14 @@ export type EmpleadoCountOutputTypeCountCodigosActivacionArgs<ExtArgs extends ru
 export type EmpleadoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
+  apellidos?: boolean
   numeroEmpleado?: boolean
   correo?: boolean
   puesto?: boolean
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   dispositivos?: boolean | Prisma.Empleado$dispositivosArgs<ExtArgs>
@@ -796,12 +866,14 @@ export type EmpleadoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
 export type EmpleadoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
+  apellidos?: boolean
   numeroEmpleado?: boolean
   correo?: boolean
   puesto?: boolean
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["empleado"]>
@@ -809,12 +881,14 @@ export type EmpleadoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type EmpleadoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   nombre?: boolean
+  apellidos?: boolean
   numeroEmpleado?: boolean
   correo?: boolean
   puesto?: boolean
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["empleado"]>
@@ -822,17 +896,19 @@ export type EmpleadoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type EmpleadoSelectScalar = {
   id?: boolean
   nombre?: boolean
+  apellidos?: boolean
   numeroEmpleado?: boolean
   correo?: boolean
   puesto?: boolean
   horarioEntrada?: boolean
   horarioSalida?: boolean
   estado?: boolean
+  passwordHash?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type EmpleadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "numeroEmpleado" | "correo" | "puesto" | "horarioEntrada" | "horarioSalida" | "estado" | "createdAt" | "updatedAt", ExtArgs["result"]["empleado"]>
+export type EmpleadoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "nombre" | "apellidos" | "numeroEmpleado" | "correo" | "puesto" | "horarioEntrada" | "horarioSalida" | "estado" | "passwordHash" | "createdAt" | "updatedAt", ExtArgs["result"]["empleado"]>
 export type EmpleadoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   dispositivos?: boolean | Prisma.Empleado$dispositivosArgs<ExtArgs>
   asistencias?: boolean | Prisma.Empleado$asistenciasArgs<ExtArgs>
@@ -852,12 +928,14 @@ export type $EmpleadoPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     nombre: string
+    apellidos: string
     numeroEmpleado: string
     correo: string | null
     puesto: string | null
     horarioEntrada: string | null
     horarioSalida: string | null
     estado: $Enums.EstadoEmpleado
+    passwordHash: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["empleado"]>
@@ -1288,12 +1366,14 @@ export interface Prisma__EmpleadoClient<T, Null = never, ExtArgs extends runtime
 export interface EmpleadoFieldRefs {
   readonly id: Prisma.FieldRef<"Empleado", 'String'>
   readonly nombre: Prisma.FieldRef<"Empleado", 'String'>
+  readonly apellidos: Prisma.FieldRef<"Empleado", 'String'>
   readonly numeroEmpleado: Prisma.FieldRef<"Empleado", 'String'>
   readonly correo: Prisma.FieldRef<"Empleado", 'String'>
   readonly puesto: Prisma.FieldRef<"Empleado", 'String'>
   readonly horarioEntrada: Prisma.FieldRef<"Empleado", 'String'>
   readonly horarioSalida: Prisma.FieldRef<"Empleado", 'String'>
   readonly estado: Prisma.FieldRef<"Empleado", 'EstadoEmpleado'>
+  readonly passwordHash: Prisma.FieldRef<"Empleado", 'String'>
   readonly createdAt: Prisma.FieldRef<"Empleado", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Empleado", 'DateTime'>
 }

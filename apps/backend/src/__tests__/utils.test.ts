@@ -2,6 +2,24 @@ import { describe, it, expect } from "vitest";
 import { AppError } from "../utils/AppError";
 import { signAdminToken, verifyAdminToken } from "../utils/jwt";
 import { hashPassword, comparePassword } from "../utils/password";
+import { attendancePresence, nextAttendanceType } from "../utils/attendance-state";
+
+describe("attendance state", () => {
+  it("starts inactive and enters on the first scan", () => {
+    expect(attendancePresence(null)).toBe("INACTIVO");
+    expect(nextAttendanceType(null)).toBe("ENTRADA");
+  });
+
+  it("toggles to inactive after an entry", () => {
+    expect(attendancePresence("ENTRADA")).toBe("ACTIVO");
+    expect(nextAttendanceType("ENTRADA")).toBe("SALIDA");
+  });
+
+  it("toggles back to active after an exit", () => {
+    expect(attendancePresence("SALIDA")).toBe("INACTIVO");
+    expect(nextAttendanceType("SALIDA")).toBe("ENTRADA");
+  });
+});
 
 describe("AppError", () => {
   it("sets message and default status 400", () => {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { activarDispositivo } from "../controllers/dispositivos.controller";
-import { requireEmpleadoAuth } from "../middleware/empleado-auth.middleware";
 
 export const dispositivosRouter = Router();
 
-dispositivosRouter.post("/activar", requireEmpleadoAuth, activarDispositivo);
+// El código de activación emitido por RH es de un solo uso y autoriza esta operación.
+dispositivosRouter.post("/activar", activarDispositivo);

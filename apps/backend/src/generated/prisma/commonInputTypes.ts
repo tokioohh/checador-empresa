@@ -216,6 +216,13 @@ export type EnumPuntualidadNullableWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumPuntualidadNullableFilter<$PrismaModel>
 }
 
+export type EnumTipoMediaFilter<$PrismaModel = never> = {
+  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
+  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel> | $Enums.TipoMedia
+}
+
 export type IntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -225,6 +232,16 @@ export type IntFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
+}
+
+export type EnumTipoMediaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
+  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMedia
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
 }
 
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -243,13 +260,6 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
-export type EnumTipoMediaFilter<$PrismaModel = never> = {
-  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
-  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel> | $Enums.TipoMedia
-}
-
 export type IntNullableFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
@@ -259,16 +269,6 @@ export type IntNullableFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null
-}
-
-export type EnumTipoMediaWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
-  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMedia
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
 }
 
 export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -570,6 +570,23 @@ export type NestedEnumPuntualidadNullableWithAggregatesFilter<$PrismaModel = nev
   _max?: Prisma.NestedEnumPuntualidadNullableFilter<$PrismaModel>
 }
 
+export type NestedEnumTipoMediaFilter<$PrismaModel = never> = {
+  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
+  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel> | $Enums.TipoMedia
+}
+
+export type NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
+  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMedia
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -595,23 +612,6 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
-}
-
-export type NestedEnumTipoMediaFilter<$PrismaModel = never> = {
-  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
-  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel> | $Enums.TipoMedia
-}
-
-export type NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.TipoMedia | Prisma.EnumTipoMediaFieldRefInput<$PrismaModel>
-  in?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  notIn?: $Enums.TipoMedia[] | Prisma.ListEnumTipoMediaFieldRefInput<$PrismaModel>
-  not?: Prisma.NestedEnumTipoMediaWithAggregatesFilter<$PrismaModel> | $Enums.TipoMedia
-  _count?: Prisma.NestedIntFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumTipoMediaFilter<$PrismaModel>
 }
 
 export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {

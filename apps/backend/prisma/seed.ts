@@ -61,7 +61,8 @@ async function main() {
     where: { numeroEmpleado: "EMP001" },
     update: {},
     create: {
-      nombre: "Juan Pérez",
+      nombre: "Juan",
+      apellidos: "Pérez",
       numeroEmpleado: "EMP001",
       correo: "juan@empresa.com",
       puesto: "Desarrollador",

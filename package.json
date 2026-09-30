@@ -7,7 +7,11 @@
   ],
   "scripts": {
     "dev:backend": "npm run dev -w apps/backend",
+    "dev:tv": "npm run dev -w apps/tv-webapp",
+    "dev:admin": "npm run dev -w apps/admin-web",
     "build:backend": "npm run build -w apps/backend",
+    "build:tv": "npm run build -w apps/tv-webapp",
+    "build:admin": "npm run build -w apps/admin-web",
     "start:backend": "npm run start -w apps/backend",
     "prisma:generate": "npm run prisma:generate -w apps/backend",
     "prisma:migrate": "npm run prisma:migrate -w apps/backend --",

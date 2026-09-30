@@ -52,6 +52,7 @@ enum RolAdmin {
 model Empleado {
   id             String         @id @default(uuid())
   nombre         String
+  apellidos      String         @default("")
   numeroEmpleado String         @unique
   correo         String?        @unique
   puesto         String?
@@ -142,9 +143,11 @@ model Asistencia {
 model Aviso {
   id          String   @id @default(uuid())
   texto       String
-  prioridad   Int      @default(0)
+  color       String   @default("negro")
   fechaInicio DateTime
   fechaFin    DateTime
+  // Cuando es true, el aviso no expira (se ignora fechaFin en el filtro de la TV).
+  indefinido  Boolean  @default(false)
   activo      Boolean  @default(true)
 
   createdAt DateTime @default(now())
@@ -153,11 +156,30 @@ model Aviso {
   @@map("avisos")
 }
 
+// Biblioteca de archivos multimedia subidos. Los archivos se guardan una sola
+// vez y pueden reutilizarse en varios elementos de la cola de reproducción.
+model Archivo {
+  id             String    @id @default(uuid())
+  nombreOriginal String
+  // Ruta relativa dentro de storage/media/, NO el archivo en sí.
+  archivoUrl     String    @unique
+  tipo           TipoMedia
+  mimeType       String
+  sizeBytes      Int
+
+  media Media[]
+
+  createdAt DateTime @default(now())
+
+  @@map("archivos")
+}
+
+// Elemento de la cola de reproducción de la TV. Referencia un Archivo de la
+// biblioteca; el orden y la activación controlan qué se muestra en la TV.
 model Media {
   id               String    @id @default(uuid())
-  tipo             TipoMedia
-  // Ruta relativa dentro de storage/media/, NO el archivo en sí.
-  archivoUrl       String
+  archivoId        String
+  archivo          Archivo   @relation(fields: [archivoId], references: [id], onDelete: Cascade)
   duracionSegundos Int?
   orden            Int       @default(0)
   activo           Boolean   @default(true)

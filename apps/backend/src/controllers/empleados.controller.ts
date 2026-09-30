@@ -1,13 +1,17 @@
 import { Request, Response } from "express";
 import { z } from "zod";
+import { randomBytes } from "crypto";
 import { EstadoEmpleado } from "../generated/prisma/client";
 import { prisma } from "../lib/prisma";
 import { AppError } from "../utils/AppError";
+import { env } from "../config/env";
+import { attendancePresence } from "../utils/attendance-state";
 
 const horarioRegex = /^([01]\d|2[0-3]):([0-5]\d)$/; // "HH:mm"
 
 const crearEmpleadoSchema = z.object({
   nombre: z.string().min(1, "El nombre es requerido"),
+  apellidos: z.string().default(""),
   numeroEmpleado: z.string().min(1, "El número de empleado es requerido"),
   correo: z.string().email("Correo inválido").optional(),
   puesto: z.string().optional(),
@@ -53,15 +57,34 @@ export async function listar(req: Request, res: Response) {
         ? {
             OR: [
               { nombre: { contains: busqueda, mode: "insensitive" } },
+              { apellidos: { contains: busqueda, mode: "insensitive" } },
               { numeroEmpleado: { contains: busqueda, mode: "insensitive" } },
             ],
           }
         : {}),
     },
     orderBy: { nombre: "asc" },
+    include: {
+      asistencias: {
+        orderBy: [{ timestamp: "desc" }, { createdAt: "desc" }],
+        take: 1,
+        select: { tipo: true, timestamp: true },
+      },
+    },
   });
 
-  return res.json({ empleados });
+  return res.json({
+    empleados: empleados.map(({ asistencias, ...empleado }) => {
+      const ultimaAsistencia = asistencias[0] ?? null;
+      return {
+        ...empleado,
+        estadoAsistencia: empleado.estado === "ACTIVO"
+          ? attendancePresence(ultimaAsistencia?.tipo ?? null)
+          : "INACTIVO",
+        ultimaAsistencia,
+      };
+    }),
+  });
 }
 
 export async function obtener(req: Request, res: Response) {
@@ -83,6 +106,36 @@ export async function crear(req: Request, res: Response) {
   const empleado = await prisma.empleado.create({ data: datos });
 
   return res.status(201).json({ empleado });
+}
+
+export async function crearCodigoActivacion(req: Request, res: Response) {
+  const id = empleadoId(req);
+  const empleado = await prisma.empleado.findUnique({
+    where: { id },
+    select: { id: true, estado: true },
+  });
+
+  if (!empleado) throw new AppError("Empleado no encontrado", 404);
+  if (empleado.estado !== "ACTIVO") {
+    throw new AppError("Solo se puede vincular un empleado activo", 400);
+  }
+
+  const codigo = randomBytes(24).toString("hex").toUpperCase();
+  const expiraEn = new Date(Date.now() + env.ACTIVATION_CODE_TTL_HOURS * 3_600_000);
+
+  const activacion = await prisma.$transaction(async (tx) => {
+    await tx.codigoActivacion.updateMany({
+      where: { empleadoId: id, usado: false },
+      data: { usado: true, usadoEn: new Date() },
+    });
+    return tx.codigoActivacion.create({
+      data: { empleadoId: id, codigo, expiraEn },
+    });
+  });
+
+  return res.status(201).json({
+    activacion: { codigo: activacion.codigo, expiraEn: activacion.expiraEn },
+  });
 }
 
 export async function actualizar(req: Request, res: Response) {

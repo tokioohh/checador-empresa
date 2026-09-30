@@ -1,0 +1,9 @@
+rootProject.name = 'tvandroidtv'
+apply from: file("../node_modules/@react-native/gradle-plugin/settings.gradle.kts")
+apply from: file("../node_modules/expo-build-properties/settings.gradle")
+
+include ':app'
+includeBuild('../node_modules/@react-native/gradle-plugin')
+
+apply from: new File(["node", "--print", "require.resolve('expo/package.json')"].execute(null, rootDir).text.trim(), "../scripts/autolinking.gradle")
+useExpoModules()
