@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:translateX="27"
+        android:translateY="27">
+        <!-- Icono de reloj/checador simplificado -->
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M54,10C29.7,10 10,29.7 10,54s19.7,44 44,44s44,-19.7 44,-44S78.3,10 54,10z M54,90c-19.9,0 -36,-16.1 -36,-36s16.1,-36 36,-36s36,16.1 36,36S73.9,90 54,90z"/>
+        <path
+            android:fillColor="#FFFFFF"
+            android:pathData="M58,30h-8v28l24,14.4l4,-6.4l-20,-12z"/>
+    </group>
+</vector>

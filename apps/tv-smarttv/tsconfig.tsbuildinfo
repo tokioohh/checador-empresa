@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/avisosticker.tsx","./src/components/mediaplayer.tsx","./src/components/qrdisplay.tsx","./src/components/welcomeoverlay.tsx","./src/hooks/useavisos.ts","./src/hooks/usemedia.ts","./src/hooks/useqrtoken.ts","./src/hooks/usetvwebsocket.ts"],"version":"5.7.3"}

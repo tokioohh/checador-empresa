@@ -1,0 +1,16 @@
+{
+  "id": "com.tuempresa.checador",
+  "version": "1.0.0",
+  "vendor": "Tu Empresa",
+  "type": "web",
+  "main": "index.html",
+  "title": "Checador Empresa",
+  "icon": "icon.png",
+  "largeIcon": "icon-large.png",
+  "resolution": "1920x1080",
+  "bgColor": "#f8fafc",
+  "disableBackHistoryAPI": true,
+  "requiredPermissions": [
+    "network.operation"
+  ]
+}
